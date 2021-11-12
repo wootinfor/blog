@@ -15,6 +15,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from .forms import UploadFileForm
 from django.http import StreamingHttpResponse
+from django.utils.encoding import escape_uri_path
 
 @login_required
 def article_list(request):
@@ -105,6 +106,6 @@ def download(request,file_id):
     file_path = ModelWithFileField.objects.all()[file_id].file_field.name
     response = StreamingHttpResponse(down_chunk_file_manager(file_path))
     response['Content-Type'] = 'application/octet-stream'
-    response['Content-Disposition'] = 'attachment;filename="{0}"'.format(file_path)
+    response['Content-Disposition'] = 'attachment;filename="{}"'.format(escape_uri_path(file_path))
  
     return response
