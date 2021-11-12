@@ -36,3 +36,10 @@ class ModelWithFileField(models.Model):
     id=models.AutoField(primary_key=True)
     file_field=models.FileField(upload_to='upload',null=True)
     article_id=models.ForeignKey(Article,on_delete=models.CASCADE,null=True)
+    user_id=models.CharField(max_length=100,null=True)
+
+class userComment(models.Model):
+    id=models.AutoField(primary_key=True)
+    comment=models.TextField()
+    article_id=models.ForeignKey(Article,on_delete=models.CASCADE,null=True)
+    user_id=models.CharField(max_length=100,null=True)

@@ -44,3 +44,6 @@ class LoginForm(forms.Form):
 class UploadFileForm(forms.Form):
     # id=forms.ModelMultipleChoiceField(queryset=Article.objects.all())
     file = forms.FileField()
+
+class UserComment(forms.Form):
+    text=forms.CharField(widget=forms.Textarea)

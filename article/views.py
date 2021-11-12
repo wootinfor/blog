@@ -3,7 +3,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpResponse
 import article
 from article.forms import LoginForm
-from article.models import Users,Article,ModelWithFileField
+from article.models import Users,Article,ModelWithFileField, userComment
 from django.shortcuts import render
 from django.views import View
 from django.urls import path
@@ -13,7 +13,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from .forms import UploadFileForm
+from .forms import UploadFileForm, UserComment,UserComment
 from django.http import StreamingHttpResponse
 from django.utils.encoding import escape_uri_path
 
@@ -63,8 +63,8 @@ def upload_file(request,article_id):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            art=Article.objects.all()[article_id-1]
-            instance = ModelWithFileField(file_field=request.FILES['file'],article_id=art)
+            art=Article.objects.get(id=article_id)
+            instance = ModelWithFileField(file_field=request.FILES['file'],article_id=art,user_id=request.user.username)
             instance.save()
             url='/article/article/'+ig
             return HttpResponseRedirect(url)
@@ -82,16 +82,31 @@ def content(request,article_id):
     # files=ModelWithFileField.objects.all()
     files=[]
     for file in ModelWithFileField.objects.all():
-        if file.article_id==articles[article_id-1]:
+        if file.article_id == Article.objects.get(id=article_id):
             files.append(file)
-    article_id=article_id-1
-    article=articles[article_id]
+    # article_id=article_id-1
+    article=Article.objects.get(id=article_id)
     title=article.title
     content=article.content
     user=article.user
     publish_date=article.publish_date
     id=article.id
-    return render(request,'content.html',{'title':title,'content':content,'user':user,'publish_date':publish_date,'id':id,'files':files,})
+    #判断留言的表单
+    if request.method == 'POST':
+        formCom = UserComment(request.POST)
+        if formCom.is_valid():
+            art=Article.objects.get(id=article_id)
+            instance = userComment(comment=request.POST['text'],article_id=art,user_id=request.user.username)
+            instance.save()
+            url='/article/article/'+str(id)
+            return HttpResponseRedirect(url)
+    else:
+        formCom = UserComment()
+
+    #获取留言记录
+    usercomments=userComment.objects.filter(article_id=Article.objects.get(id=article_id))
+
+    return render(request,'content.html',{'title':title,'content':content,'user':user,'publish_date':publish_date,'id':id,'files':files,'formCom':formCom,'usercomments':usercomments,})
 
 def download(request,file_id):
     def down_chunk_file_manager(file_path, chuck_size=1024):
@@ -102,10 +117,11 @@ def download(request,file_id):
                     yield chuck_stream
                 else:
                     break
-    file_id=file_id-1            
-    file_path = ModelWithFileField.objects.all()[file_id].file_field.name
+    # file_id=file_id-1            
+    file_path = ModelWithFileField.objects.get(id=file_id).file_field.name
+    filename=file_path[-20:]
     response = StreamingHttpResponse(down_chunk_file_manager(file_path))
     response['Content-Type'] = 'application/octet-stream'
-    response['Content-Disposition'] = 'attachment;filename="{}"'.format(escape_uri_path(file_path))
+    response['Content-Disposition'] = 'attachment;filename={0}'.format(escape_uri_path(filename))
  
     return response

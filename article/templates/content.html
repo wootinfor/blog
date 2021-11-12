@@ -1,19 +1,7 @@
 <!DOCTYPE html>
-
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>南寨镇人民政府</title>
-        <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-
-        <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
-        
-    </head>
-    
-    <body>
+{% extends 'base.html' %}
+ {% block title %}文章列表{% endblock%}
+ {% block content %}
         <div class="container page-header">
             <h1>{{title}}</h1>
         </div>
@@ -28,6 +16,7 @@
         <tr class="success">
             <th>文件序号</th>
             <th>文件名</th>
+            <th>用户</th>
         </tr>
         </thead>
         <tbody>
@@ -35,13 +24,43 @@
         <tr class="warning">
            <th>{{file.id}}</th>
             <th><a href='/article/download/{{file.id}}'>下载</a>{{file.file_field.name}}</th>
+            <th>{{file.user_id}}</th>
         </tr>
         {% endfor %}
         </tbody>
         </table>
-        <div class="container page-header"><a href='/article/upload/{{id}}'>上传文件</a></div>
+        <div class="container page-header"><a href='/article/upload/{{id}}'><button>上传文件</button></a></div>
         </div>
-        <div class="col-xs-2 col-sm-2"></div>
+
+
+        <table class="table table-condensed">
+        <thead>
+        <tr class="success">
+            <th>序号</th>
+            <th>留言内容</th>
+            <th>用户</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for usercomment in usercomments %}
+        <tr class="warning">
+           <th>{{usercomment.id}}</th>
+            <th>{{usercomment.comment}}</th>
+            <th>{{usercomment.user_id}}</th>
+        </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+
+
+
+        <div class="col-xs-12">
+            <form action="" method="post" >
+                {% csrf_token %}
+                <p>留言：{{formCom.text}}</p>
+                <button type='submit' class='btn btn-primary'>提交</button>
+            </form>
         
-    </body>
-</html>
+        </div>
+        
+    {%endblock%}
