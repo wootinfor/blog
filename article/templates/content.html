@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>南寨镇人民政府</title>
+        <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+        <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+        
+    </head>
+    
+    <body>
+        <div class="container page-header">
+            <h1>{{title}}</h1>
+        </div>
+        <div class="container body-main">
+                 <p>{{content}}</p> 
+                 
+        </div>
+        <div class="col-xs-2 col-sm-2"></div>
+        <div class="col-xs-8 col-sm-8">
+        <table class="table table-condensed">
+        <thead>
+        <tr class="success">
+            <th>文件序号</th>
+            <th>文件名</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for file in files %}
+        <tr class="warning">
+           <th>{{file.id}}</th>
+            <th><a href='/article/download/{{file.id}}'>下载</a>{{file.file_field.name}}</th>
+        </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+        <div class="container page-header"><a href='/article/upload/{{id}}'>上传文件</a></div>
+        </div>
+        <div class="col-xs-2 col-sm-2"></div>
+        
+    </body>
+</html>

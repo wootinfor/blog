@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+ {% block title %}文章列表{% endblock%}
+ {% block content %}
+<div style='margin-top:20px'>
+  <h3>文章列表</h3>
+  <table class="table table-condensed">
+    <thead>
+      <tr class="success">
+        <th>文章id</th>
+        <th>作者</th>
+        <th>标题</th>
+        <th>发布时间</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for article in articles %}
+      <tr class="warning">
+        <th>{{article.id}}</th>
+        <th>{{article.user}}</th>
+        <th><a href='article/{{article.id}}'>{{article.title}}</a></th>
+        <th>{{article.publish_date}}</th>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<div><a href="/article/logout">退出登录</a></div>
+{%endblock%}
