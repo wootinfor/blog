@@ -42,6 +42,9 @@ class ModelWithFileField(models.Model):
     article_id=models.ForeignKey(Article,on_delete=models.CASCADE,null=True)
     user_id=models.CharField(max_length=100,null=True)
 
+    def __str__(self):
+        return self.file_field.name[-20:]
+
 class userComment(models.Model):
     id=models.AutoField(primary_key=True)
     comment=models.TextField()
