@@ -1,6 +1,7 @@
 from os import truncate
 from django.db import models
-from django.db.models.fields import IntegerField
+from django.db.models.fields import CharField, IntegerField
+from django.contrib.auth.models import User
 
 import article,os
 
@@ -18,8 +19,10 @@ class Article(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=120)
     content = models.TextField()
-    publish_date = models.DateTimeField()
-    user = models.ForeignKey(Users, on_delete=models.CASCADE)
+    publish_date = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
+    # user = models.CharField(max_length=100,null=True)
+
 
     def __repr__(self):
         return Article.title
@@ -30,6 +33,7 @@ class Article(models.Model):
         return self.title
 
     short_content.short_description = 'content'
+
 
 # Create your models here.
 class ModelWithFileField(models.Model):
@@ -43,3 +47,6 @@ class userComment(models.Model):
     comment=models.TextField()
     article_id=models.ForeignKey(Article,on_delete=models.CASCADE,null=True)
     user_id=models.CharField(max_length=100,null=True)
+
+    def __str__(self):
+        return self.comment[:20]

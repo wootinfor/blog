@@ -3,17 +3,17 @@
  {% block title %}文章列表{% endblock%}
  {% block content %}
         <div class="container page-header">
-            <h1>{{title}}</h1>
+            <h3>{{title}}</h3>
         </div>
         <div class="container body-main">
                  <p>{{content}}</p> 
                  
         </div>
         <div class="col-xs-2 col-sm-2"></div>
-        <div class="col-xs-8 col-sm-8">
+        <div class="col-xs-12 col-sm-12">
         <table class="table table-condensed">
         <thead>
-        <tr class="success">
+        <tr class="active">
             <th>文件序号</th>
             <th>文件名</th>
             <th>用户</th>
@@ -29,8 +29,10 @@
         {% endfor %}
         </tbody>
         </table>
-        <div class="container page-header"><a href='/article/upload/{{id}}'><button>上传文件</button></a></div>
+        <div class="container page-header"><a href='/article/upload/{{id}}'><button type='submit' class='btn btn-primary'>上传文件</button></a></div>
         </div>
+
+        <tr>留言</tr>
 
 
         <table class="table table-condensed">
@@ -53,14 +55,17 @@
         </table>
 
 
+<div class='row'>
 
-        <div class="col-xs-12">
+
+        <div class="col-xs-8 col-sm-8 ">
             <form action="" method="post" >
                 {% csrf_token %}
-                <p>留言：{{formCom.text}}</p>
+                <lable>留言：</lable>
+                <p>{{formCom.text}}</p>
                 <button type='submit' class='btn btn-primary'>提交</button>
             </form>
         
         </div>
-        
+</div>
     {%endblock%}

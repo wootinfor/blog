@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{% endblock%}</title>
     {% load static %}
     <link
@@ -22,6 +23,8 @@
     ></script>
   </head>
   <body class="container">
+  <div class='row'>
+  <div class="col-xs-12 col-sm-6 col-md-12">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">菜单</a>
       <button
@@ -65,7 +68,7 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled">其他</a>
+            <a class="nav-link" href='/admin'>文章管理</a>
           </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
@@ -81,6 +84,8 @@
         </form>
       </div>
     </nav>
+  </div> 
+  </div>  
     {% block content %}{% endblock%}
   </body>
 </html>
