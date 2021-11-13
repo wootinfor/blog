@@ -6,7 +6,12 @@
             <h3>{{title}}</h3>
         </div>
         <div class="container body-main">
-                 <p>{{content}}</p> 
+
+                 {% for section in section_list %}
+                    <p>
+                        {{section}}
+                    </p>
+                    {% endfor %}
                  
         </div>
         <div class="col-xs-2 col-sm-2"></div>

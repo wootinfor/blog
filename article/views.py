@@ -17,6 +17,7 @@ from .forms import UploadFileForm, UserComment,UserComment
 from django.http import StreamingHttpResponse
 from django.utils.encoding import escape_uri_path
 
+
 @login_required
 def article_list(request):
     articles=Article.objects.all()
@@ -88,6 +89,7 @@ def content(request,article_id):
     article=Article.objects.get(id=article_id)
     title=article.title
     content=article.content
+    section_list=article.content.split('\n')
     user=article.user
     publish_date=article.publish_date
     id=article.id
@@ -106,7 +108,7 @@ def content(request,article_id):
     #获取留言记录
     usercomments=userComment.objects.filter(article_id=Article.objects.get(id=article_id))
 
-    return render(request,'content.html',{'title':title,'content':content,'user':user,'publish_date':publish_date,'id':id,'files':files,'formCom':formCom,'usercomments':usercomments,})
+    return render(request,'content.html',{'title':title,'content':content,'user':user,'publish_date':publish_date,'id':id,'files':files,'formCom':formCom,'usercomments':usercomments,'section_list':section_list,})
 
 def download(request,file_id):
     def down_chunk_file_manager(file_path, chuck_size=1024):
