@@ -16,7 +16,7 @@ class ArticleAdmin(admin.ModelAdmin):
         obj.user=request.user
         super().save_model(request, obj, form, change)
 
-admin.site.register(Users,UserAdmin)
+# admin.site.register(Users,UserAdmin)
 admin.site.register(Article,ArticleAdmin)
 admin.site.register(ModelWithFileField)
 admin.site.register(userComment)
