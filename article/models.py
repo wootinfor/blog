@@ -16,12 +16,16 @@ class Users(models.Model):
 
 
 class Article(models.Model):
-    id = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=120)
-    content = models.TextField()
-    publish_date = models.DateTimeField(auto_now=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
+    id = models.AutoField(primary_key=True,verbose_name='序号')
+    title = models.CharField(max_length=120,verbose_name='标题')
+    content = models.TextField(verbose_name='正文内容')
+    publish_date = models.DateTimeField(auto_now=True,verbose_name='发布时间')
+    user = models.ForeignKey(User, on_delete=models.CASCADE,null=True,verbose_name='用户名')
     # user = models.CharField(max_length=100,null=True)
+
+    class Meta:
+        verbose_name='文章发布'
+        verbose_name_plural='文章发布'
 
 
     def __repr__(self):
@@ -37,19 +41,27 @@ class Article(models.Model):
 
 # Create your models here.
 class ModelWithFileField(models.Model):
-    id=models.AutoField(primary_key=True)
-    file_field=models.FileField(upload_to='upload',null=True)
+    id=models.AutoField(primary_key=True,verbose_name='序号')
+    file_field=models.FileField(upload_to='upload',null=True,verbose_name='文件')
     article_id=models.ForeignKey(Article,on_delete=models.CASCADE,null=True)
     user_id=models.CharField(max_length=100,null=True)
+
+    class Meta:
+        verbose_name='文件管理'
+        verbose_name_plural='文件管理'
 
     def __str__(self):
         return self.file_field.name[-20:]
 
 class userComment(models.Model):
-    id=models.AutoField(primary_key=True)
-    comment=models.TextField()
+    id=models.AutoField(primary_key=True,verbose_name='序号')
+    comment=models.TextField(verbose_name='评论')
     article_id=models.ForeignKey(Article,on_delete=models.CASCADE,null=True)
-    user_id=models.CharField(max_length=100,null=True)
+    user_id=models.CharField(max_length=100,null=True,verbose_name='用户名')
+
+    class Meta:
+        verbose_name='评论管理'
+        verbose_name_plural='评论管理'
 
     def __str__(self):
         return self.comment[:20]
