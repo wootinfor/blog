@@ -45,6 +45,7 @@
         <tr class="success">
             <th>序号</th>
             <th>留言内容</th>
+            <th>时间</th>
             <th>用户</th>
         </tr>
         </thead>
@@ -53,6 +54,7 @@
         <tr class="warning">
            <th>{{usercomment.id}}</th>
             <th>{{usercomment.comment}}</th>
+            <th>{{usercomment.publish_date}}</th>
             <th>{{usercomment.user_id}}</th>
         </tr>
         {% endfor %}
