@@ -58,7 +58,7 @@ class userComment(models.Model):
     comment=models.TextField(verbose_name='评论')
     article_id=models.ForeignKey(Article,on_delete=models.CASCADE,null=True)
     user_id=models.CharField(max_length=100,null=True,verbose_name='用户名')
-    publish_date = models.DateTimeField(auto_now=True,null=True,verbose_name='发布时间')
+    # publish_date = models.DateTimeField(auto_now=True,null=True,verbose_name='发布时间')
 
     class Meta:
         verbose_name='评论管理'
