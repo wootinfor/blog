@@ -18,7 +18,7 @@
         <div class="col-xs-12 col-sm-12">
         <table class="table table-condensed">
         <thead>
-        <tr class="active">
+        <tr class="active" style="font-size:10pt">
             <th>文件序号</th>
             <th>文件名</th>
             <th>用户</th>
@@ -26,7 +26,7 @@
         </thead>
         <tbody>
         {% for file in files %}
-        <tr class="warning">
+        <tr class="warning" style="font-size:7pt">
            <th>{{file.id}}</th>
             <th><a href='/article/download/{{file.id}}'>下载</a>{{file.file_field.name}}</th>
             <th>{{file.user_id}}</th>
@@ -42,7 +42,7 @@
 
         <table class="table table-condensed">
         <thead>
-        <tr class="success">
+        <tr class="success" style="font-size:10pt">
             <th>序号</th>
             <th>留言内容</th>
             <th>时间</th>
@@ -51,7 +51,7 @@
         </thead>
         <tbody>
         {% for usercomment in usercomments %}
-        <tr class="warning">
+        <tr class="warning" style="font-size:7pt">
            <th>{{usercomment.id}}</th>
             <th>{{usercomment.comment}}</th>
             <th>{{usercomment.publish_date}}</th>
