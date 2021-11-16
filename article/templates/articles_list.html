@@ -6,7 +6,7 @@
   <h3>文章列表</h3>
   <table class="table table-condensed">
     <thead>
-      <tr class="success">
+      <tr class="success" style="font-size:7pt">
         <th>文章id</th>
         <th>作者</th>
         <th>标题</th>
@@ -16,10 +16,10 @@
     <tbody>
       {% for article in articles %}
       <tr class="warning">
-        <th>{{article.id}}</th>
-        <th>{{article.user}}</th>
-        <th><a href='article/{{article.id}}'>{{article.title}}</a></th>
-        <th>{{article.publish_date}}</th>
+        <th style="font-size:7pt">{{article.id}}</th>
+        <th style="font-size:7pt">{{article.user}}</th>
+        <th style="font-size:10pt"><a href='article/{{article.id}}'>{{article.title}}</a></th>
+        <th style="font-size:7pt">{{article.publish_date}}</th>
       </tr>
       {% endfor %}
     </tbody>
