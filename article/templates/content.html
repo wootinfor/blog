@@ -43,15 +43,15 @@
         <table class="table table-condensed">
         <thead>
         <tr class="success" style="font-size:10pt">
-            <th>序号</th>
-            <th>留言内容</th>
-            <th>时间</th>
-            <th>用户</th>
+            <th style='width:6%'>序号</th>
+            <th style='width:60%'>留言内容</th>
+            <th style='width:10%'>时间</th>
+            <th style='width:6%'>用户</th>
         </tr>
         </thead>
         <tbody>
         {% for usercomment in usercomments %}
-        <tr class="warning" style="font-size:7pt">
+        <tr class="warning" style="font-size:10pt">
            <th>{{usercomment.id}}</th>
             <th>{{usercomment.comment}}</th>
             <th>{{usercomment.publish_date}}</th>
